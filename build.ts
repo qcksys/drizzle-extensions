@@ -3,10 +3,9 @@ import dts from "bun-plugin-dts";
 
 const defaultBuildConfig: BuildConfig = {
   entrypoints: [
-    "./src/mysql.ts",
-    "./src/pgsql.ts",
-    "./src/sqlite.ts",
-    "./src/sqlite-expo.ts",
+    "./src/onConflictDoUpdate.ts",
+    "./src/onDuplicateKeyUpdate.ts",
+    "./src/useLiveTablesQuery.ts",
   ],
   outdir: "./dist",
   packages: "external",
