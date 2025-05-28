@@ -63,11 +63,15 @@ export const onConflictDoUpdateTarget = <
   const keepColumnNames: TDrizzleTableCol["name"][] = keepColumns.map(
     (col) => col.name,
   );
-  const targetCols: TDrizzleTable["_"]["columns"][] = [];
+  const targetCols: ReturnType<typeof getTableColumns>[string][] = [];
   for (const name in keepColumnNames) {
     const col = allColumns[name];
-    if (col && (col.primary || col.isUnique || excludeNames?.includes(name))) {
-      targetCols.push(allColumns);
+    if (
+      col &&
+      allColumns[name] &&
+      (col.primary || col.isUnique || excludeNames?.includes(name))
+    ) {
+      targetCols.push(allColumns[name]);
     }
   }
   return targetCols;
