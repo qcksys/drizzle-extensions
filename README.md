@@ -2,6 +2,44 @@
 
 ## Usage
 
+### onDuplicateKeyUpdate (MySQL, SingleStore)
+
+By default, it will update all columns except the primary key and unique indexes.\
+You can explicitly specify which columns to keep or exclude.
+
+```ts
+import { db } from "@/db/drizzle";
+import { tTable1 } from "@/db/schema";
+import { onDuplicateKeyUpdateConfig } from "@qcksys/drizzle-extensions/onDuplicateKeyUpdate";
+
+await db
+    .insert(tTable1)
+    .values({
+        id: 1,
+        name: "qcksys",
+        deleted: false,
+        testing: true,
+    })
+    .onDuplicateKeyUpdate(
+        // If `id` is the pk and `name` has a unique index
+        // it will update all columns except `id` and `name`.
+        onDuplicateKeyUpdateConfig(tTable1)
+    );
+
+await db
+    .insert(tTable1)
+    .values({
+        id: 1,
+        name: "qcksys",
+        deleted: false,
+        testing: true,
+    })
+    .onDuplicateKeyUpdate(
+        // This would target just the `deleted` column for updates.
+        onDuplicateKeyUpdateConfig(tTable1, { keep: tTable1.deleted })
+    );
+```
+
 ### onConflictDoUpdate (PostgreSQL, SQLite)
 
 ```ts
@@ -10,35 +48,21 @@ import { tTable1 } from "@/db/schema";
 import { onConflictDoUpdateConfig } from "@qcksys/drizzle-extensions/onConflictDoUpdate";
 
 await db
-    .insert(tWorks)
+    .insert(tTable1)
     .values({
         id: 1,
         name: "qcksys",
+        deleted: false,
+        testing: true,
     })
     .onConflictDoUpdate(
-        onConflictDoUpdateConfig(tWorks)
-    );
-```
-
-### onDuplicateKeyUpdate (MySQL, SingleStore)
-
-```ts
-import { db } from "@/db/drizzle";
-import { tTable1 } from "@/db/schema";
-import { onDuplicateKeyUpdateConfig } from "@qcksys/drizzle-extensions/onDuplicateKeyUpdate";
-
-await db
-    .insert(tWorks)
-    .values({
-        id: 1,
-        name: "qcksys",
-    })
-    .onDuplicateKeyUpdate(
-        onDuplicateKeyUpdateConfig(tWorks)
+        onConflictDoUpdateConfig(tTable1)
     );
 ```
 
 ### useLiveTablesQuery (Expo SQLite)
+
+Add the tables to listen to in the second argument.
 
 ```ts
 import { db } from "@/db/drizzle";
@@ -48,10 +72,7 @@ import { useLiveTablesQuery } from "@qcksys/drizzle-extensions/useLiveTablesQuer
 
 const { data } = useLiveTablesQuery(
         db
-            .select({
-                table1Id: tTable1.id,
-                table2Id: tTable2.id,
-            })
+            .select()
             .from(tTable1)
             .leftJoin(
                 tTable2,

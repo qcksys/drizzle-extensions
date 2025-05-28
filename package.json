@@ -1,6 +1,6 @@
 {
   "name": "@qcksys/drizzle-extensions",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "type": "module",
   "exports": {
     "./onConflictDoUpdate": {
@@ -27,7 +27,7 @@
     "biome:ci": "biome ci"
   },
   "files": ["dist"],
-  "keywords": ["drizzle-orm"],
+  "keywords": ["drizzle-orm", "qcksys", "expo", "react-native", "sqlite"],
   "license": "MIT",
   "homepage": "https://github.com/qcksys/drizzle-extensions#readme",
   "repository": {

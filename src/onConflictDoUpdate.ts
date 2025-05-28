@@ -3,7 +3,7 @@ import type { PgTable } from "drizzle-orm/pg-core";
 import type { SQLiteTable } from "drizzle-orm/sqlite-core";
 import { toArray } from "./utils.ts";
 
-export const buildOnConflictDoUpdate = <
+export const onConflictDoUpdateSet = <
   TDrizzleTable extends PgTable | SQLiteTable,
   TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
 >(
@@ -38,19 +38,58 @@ export const buildOnConflictDoUpdate = <
   );
 };
 
+export const onConflictDoUpdateTarget = <
+  TDrizzleTable extends PgTable | SQLiteTable,
+  TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
+>(
+  table: TDrizzleTable,
+  {
+    target,
+    exclude,
+  }: {
+    target?: TDrizzleTableCol[];
+    exclude?: TDrizzleTableCol[];
+  } = {},
+) => {
+  const targetArray = toArray(target);
+
+  if (targetArray.length) return targetArray;
+
+  const excludeArray = toArray(exclude);
+  const excludeNames = excludeArray.map((col) => col.name);
+
+  const allColumns = getTableColumns(table);
+  const keepColumns = Object.values(allColumns);
+  const keepColumnNames: TDrizzleTableCol["name"][] = keepColumns.map(
+    (col) => col.name,
+  );
+  const targetCols: TDrizzleTable["_"]["columns"][] = [];
+  for (const name in keepColumnNames) {
+    const col = allColumns[name];
+    if (col && (col.primary || col.isUnique || excludeNames?.includes(name))) {
+      targetCols.push(allColumns);
+    }
+  }
+  return targetCols;
+};
+
 export const onConflictDoUpdateConfig = <
   TDrizzleTable extends PgTable | SQLiteTable,
   TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
 >(
   table: TDrizzleTable,
-  target: TDrizzleTableCol | TDrizzleTableCol[],
   {
+    target,
     keep,
     exclude,
-  }: { keep?: TDrizzleTableCol[]; exclude?: TDrizzleTableCol[] } = {},
+  }: {
+    target?: TDrizzleTableCol[];
+    keep?: TDrizzleTableCol[];
+    exclude?: TDrizzleTableCol[];
+  } = {},
 ) => {
   return {
-    target,
-    set: buildOnConflictDoUpdate(table, { keep, exclude }),
+    target: onConflictDoUpdateTarget(table, { target, exclude }),
+    set: onConflictDoUpdateSet(table, { keep, exclude }),
   };
 };

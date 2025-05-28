@@ -3,7 +3,7 @@ import type { MySqlTable } from "drizzle-orm/mysql-core";
 import type { SingleStoreTable } from "drizzle-orm/singlestore-core";
 import { toArray } from "./utils.ts";
 
-export const buildOnDuplicateKeyUpdate = <
+export const onDuplicateKeyUpdateSet = <
   TDrizzleTable extends MySqlTable | SingleStoreTable,
   TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
 >(
@@ -49,9 +49,12 @@ export const onDuplicateKeyUpdateConfig = <
   {
     keep,
     exclude,
-  }: { keep?: TDrizzleTableCol[]; exclude?: TDrizzleTableCol[] } = {},
+  }: {
+    keep?: TDrizzleTableCol | TDrizzleTableCol[];
+    exclude?: TDrizzleTableCol | TDrizzleTableCol[];
+  } = {},
 ) => {
   return {
-    set: buildOnDuplicateKeyUpdate(table, { keep, exclude }),
+    set: onDuplicateKeyUpdateSet(table, { keep, exclude }),
   };
 };
