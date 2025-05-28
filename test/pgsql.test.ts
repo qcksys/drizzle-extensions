@@ -1,14 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import {
-  buildConflictUpdateColumns,
-  onDuplicateKeyUpdateConfig,
+  buildOnConflictDoUpdate,
+  onConflictDoUpdateConfig,
 } from "../src/pgsql";
 
 describe("should", () => {
-  it("export buildConflictUpdateColumns", () => {
-    expect(buildConflictUpdateColumns).toBeDefined();
+  it("export buildOnConflictDoUpdate", () => {
+    expect(buildOnConflictDoUpdate).toBeDefined();
   });
-  it("export onDuplicateKeyUpdateConfig", () => {
-    expect(onDuplicateKeyUpdateConfig).toBeDefined();
+  it("export onConflictDoUpdateConfig", () => {
+    expect(onConflictDoUpdateConfig).toBeDefined();
   });
 });

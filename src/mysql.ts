@@ -1,1 +1,1 @@
-export * from "./lib/mysqlUpsert";
+export * from "./lib/onDuplicateKeyUpdate.ts";

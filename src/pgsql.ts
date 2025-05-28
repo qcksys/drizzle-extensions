@@ -1,1 +1,1 @@
-export * from "./lib/pgsqlSqliteUpsert";
+export * from "./lib/onConflictDoUpdate.ts";

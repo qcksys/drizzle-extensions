@@ -1,12 +1,12 @@
 import { describe, expect, it } from "bun:test";
 import {
-  buildConflictUpdateColumns,
+  buildOnDuplicateKeyUpdate,
   onDuplicateKeyUpdateConfig,
 } from "../src/mysql";
 
 describe("should", () => {
-  it("export buildConflictUpdateColumns", () => {
-    expect(buildConflictUpdateColumns).toBeDefined();
+  it("export buildOnDuplicateKeyUpdate", () => {
+    expect(buildOnDuplicateKeyUpdate).toBeDefined();
   });
   it("export onDuplicateKeyUpdateConfig", () => {
     expect(onDuplicateKeyUpdateConfig).toBeDefined();

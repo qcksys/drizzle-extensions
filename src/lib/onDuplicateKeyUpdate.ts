@@ -1,9 +1,8 @@
 import { type SQL, getTableColumns, sql } from "drizzle-orm";
-import type { PgTable } from "drizzle-orm/pg-core";
-import type { SQLiteTable } from "drizzle-orm/sqlite-core/table";
+import type { MySqlTable } from "drizzle-orm/mysql-core";
 
-export const buildConflictUpdateColumns = <
-  TDrizzleTable extends PgTable | SQLiteTable,
+export const buildOnDuplicateKeyUpdate = <
+  TDrizzleTable extends MySqlTable,
   TDrizzleTableCol extends keyof TDrizzleTable["_"]["columns"],
 >(
   table: TDrizzleTable,
@@ -21,7 +20,7 @@ export const buildConflictUpdateColumns = <
       if (col && (col.primary || col.isUnique || exclude?.includes(name))) {
         return acc;
       }
-      acc[name] = sql`excluded.${allColumns[name]}`;
+      acc[name] = sql`values (${allColumns[name]})`;
       return acc;
     },
     {} as Record<TDrizzleTableCol, SQL>,
@@ -29,7 +28,7 @@ export const buildConflictUpdateColumns = <
 };
 
 export const onDuplicateKeyUpdateConfig = <
-  TDrizzleTable extends PgTable | SQLiteTable,
+  TDrizzleTable extends MySqlTable,
   TDrizzleTableCol extends keyof TDrizzleTable["_"]["columns"],
 >(
   table: TDrizzleTable,
@@ -39,6 +38,6 @@ export const onDuplicateKeyUpdateConfig = <
   }: { keep?: TDrizzleTableCol[]; exclude?: TDrizzleTableCol[] } = {},
 ) => {
   return {
-    set: buildConflictUpdateColumns(table, { keep, exclude }),
+    set: buildOnDuplicateKeyUpdate(table, { keep, exclude }),
   };
 };

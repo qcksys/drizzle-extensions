@@ -1,2 +1,2 @@
-export * from "./lib/pgsqlSqliteUpsert";
-export * from "./lib/sqliteExpoWatcher";
+export * from "./lib/onConflictDoUpdate.ts";
+export * from "./lib/useLiveTablesQuery.ts";
