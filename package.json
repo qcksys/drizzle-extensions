@@ -1,27 +1,22 @@
 {
   "name": "@qcksys/drizzle-extensions",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "exports": {
-    "./mysql": {
-      "types": "./dist/mysql.d.ts",
-      "import": "./dist/mysql.js",
-      "require": "./dist/mysql.cjs"
+    "./onConflictDoUpdate": {
+      "types": "./dist/onConflictDoUpdate.d.ts",
+      "import": "./dist/onConflictDoUpdate.js",
+      "require": "./dist/onConflictDoUpdate.cjs"
     },
-    "./pgsql": {
-      "types": "./dist/pgsql.d.ts",
-      "import": "./dist/pgsql.js",
-      "require": "./dist/pgsql.cjs"
+    "./onDuplicateKeyUpdate": {
+      "types": "./dist/onDuplicateKeyUpdate.d.ts",
+      "import": "./dist/onDuplicateKeyUpdate.js",
+      "require": "./dist/onDuplicateKeyUpdate.cjs"
     },
-    "./sqlite": {
-      "types": "./dist/sqlite.d.ts",
-      "import": "./dist/sqlite.js",
-      "require": "./dist/sqlite.cjs"
-    },
-    "./sqlite-expo": {
-      "types": "./dist/sqlite-expo.d.ts",
-      "import": "./dist/sqlite-expo.js",
-      "require": "./dist/sqlite-expo.cjs"
+    "./useLiveTablesQuery": {
+      "types": "./dist/useLiveTablesQuery.d.ts",
+      "import": "./dist/useLiveTablesQuery.js",
+      "require": "./dist/useLiveTablesQuery.cjs"
     }
   },
   "scripts": {

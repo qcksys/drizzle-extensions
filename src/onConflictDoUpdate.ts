@@ -1,6 +1,6 @@
 import { type SQL, getTableColumns, sql } from "drizzle-orm";
 import type { PgTable } from "drizzle-orm/pg-core";
-import type { SQLiteTable } from "drizzle-orm/sqlite-core/table";
+import type { SQLiteTable } from "drizzle-orm/sqlite-core";
 
 export const buildOnConflictDoUpdate = <
   TDrizzleTable extends PgTable | SQLiteTable,
@@ -33,12 +33,14 @@ export const onConflictDoUpdateConfig = <
   TDrizzleTableCol extends keyof TDrizzleTable["_"]["columns"],
 >(
   table: TDrizzleTable,
+  target: TDrizzleTableCol | TDrizzleTableCol[],
   {
     keep,
     exclude,
   }: { keep?: TDrizzleTableCol[]; exclude?: TDrizzleTableCol[] } = {},
 ) => {
   return {
+    target,
     set: buildOnConflictDoUpdate(table, { keep, exclude }),
   };
 };
