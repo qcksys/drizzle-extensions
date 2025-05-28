@@ -2,9 +2,24 @@
   "name": "@qcksys/drizzle-extensions",
   "type": "module",
   "exports": {
-    "types": "./dist/index.d.ts",
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
+    "types": [
+      "./dist/mysql.d.ts",
+      "./dist/pgsql.d.ts",
+      "./dist/sqlite.d.ts",
+      "./dist/sqlite-expo.d.ts"
+    ],
+    "import": [
+      "./dist/mysql.js",
+      "./dist/pgsql.js",
+      "./dist/sqlite.js",
+      "./dist/sqlite-expo.js"
+    ],
+    "require": [
+      "./dist/mysql.cjs",
+      "./dist/pgsql.cjs",
+      "./dist/sqlite.cjs",
+      "./dist/sqlite-expo.cjs"
+    ]
   },
   "scripts": {
     "build": "bun run build.ts",
@@ -23,10 +38,13 @@
   "bugs": "https://github.com/qcksys/drizzle-extensions/issues",
   "author": "Tom Alle <tom@qcksys.com>",
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/bun": "^1.2.14",
+    "@types/react": "^19.1.6",
     "bun-plugin-dts": "^0.3.0",
     "drizzle-orm": "^0.43.1",
-    "@biomejs/biome": "1.9.4",
+    "expo-sqlite": "^15.2.10",
+    "react": "^19.1.0",
     "typescript": "^5.8.3"
   },
   "trustedDependencies": ["@biomejs/biome"]

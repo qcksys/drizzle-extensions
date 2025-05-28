@@ -2,8 +2,14 @@ import type { BuildConfig } from "bun";
 import dts from "bun-plugin-dts";
 
 const defaultBuildConfig: BuildConfig = {
-  entrypoints: ["./src/index.ts"],
+  entrypoints: [
+    "./src/mysql.ts",
+    "./src/pgsql.ts",
+    "./src/sqlite.ts",
+    "./src/sqlite-expo.ts",
+  ],
   outdir: "./dist",
+  packages: "external",
 };
 
 await Promise.all([
