@@ -1,27 +1,31 @@
 {
   "name": "@qcksys/drizzle-extensions",
+  "version": "0.0.5",
   "type": "module",
   "exports": {
-    "types": [
-      "./dist/mysql.d.ts",
-      "./dist/pgsql.d.ts",
-      "./dist/sqlite.d.ts",
-      "./dist/sqlite-expo.d.ts"
-    ],
-    "import": [
-      "./dist/mysql.js",
-      "./dist/pgsql.js",
-      "./dist/sqlite.js",
-      "./dist/sqlite-expo.js"
-    ],
-    "require": [
-      "./dist/mysql.cjs",
-      "./dist/pgsql.cjs",
-      "./dist/sqlite.cjs",
-      "./dist/sqlite-expo.cjs"
-    ]
+    "./mysql": {
+      "types": "./dist/mysql.d.ts",
+      "import": "./dist/mysql.js",
+      "require": "./dist/mysql.cjs"
+    },
+    "./pgsql": {
+      "types": "./dist/pgsql.d.ts",
+      "import": "./dist/pgsql.js",
+      "require": "./dist/pgsql.cjs"
+    },
+    "./sqlite": {
+      "types": "./dist/sqlite.d.ts",
+      "import": "./dist/sqlite.js",
+      "require": "./dist/sqlite.cjs"
+    },
+    "./sqlite-expo": {
+      "types": "./dist/sqlite-expo.d.ts",
+      "import": "./dist/sqlite-expo.js",
+      "require": "./dist/sqlite-expo.cjs"
+    }
   },
   "scripts": {
+    "test": "bun test",
     "build": "bun run build.ts",
     "prepublishOnly": "bun run build",
     "biome:check:unsafe": "biome check --write --unsafe",
@@ -37,6 +41,9 @@
   },
   "bugs": "https://github.com/qcksys/drizzle-extensions/issues",
   "author": "Tom Alle <tom@qcksys.com>",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/bun": "^1.2.14",
