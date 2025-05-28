@@ -34,7 +34,7 @@ export const onDuplicateKeyUpdateSet = <
       ) {
         return acc;
       }
-      acc[name] = sql`values(${allColumns[name]})`;
+      acc[name] = sql.raw(`values(${allColumns[name]})`);
       return acc;
     },
     {} as Record<TDrizzleTableCol["name"], SQL>,
