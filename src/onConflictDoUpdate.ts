@@ -77,7 +77,6 @@ export const onConflictDoUpdateTarget = <
   const targetCols: ReturnType<typeof getTableColumns>[string][] = [];
   for (const name of keepColumnNames) {
     const col = allColumns[name];
-    console.log(name, col);
     if (col && (col.primary || col.isUnique || excludeNames?.includes(name))) {
       targetCols.push(col);
     }
