@@ -1,6 +1,6 @@
 {
   "name": "@qcksys/drizzle-extensions",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "type": "module",
   "exports": {
     "./onConflictDoUpdate": {
@@ -26,8 +26,16 @@
     "biome:check:unsafe": "biome check --write --unsafe",
     "biome:ci": "biome ci"
   },
-  "files": ["dist"],
-  "keywords": ["drizzle-orm", "qcksys", "expo", "react-native", "sqlite"],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "drizzle-orm",
+    "qcksys",
+    "expo",
+    "react-native",
+    "sqlite"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/qcksys/drizzle-extensions#readme",
   "repository": {
@@ -49,5 +57,7 @@
     "react": "^19.1.0",
     "typescript": "^5.8.3"
   },
-  "trustedDependencies": ["@biomejs/biome"]
+  "trustedDependencies": [
+    "@biomejs/biome"
+  ]
 }
