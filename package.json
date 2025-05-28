@@ -1,0 +1,33 @@
+{
+  "name": "@qcksys/drizzle-extensions",
+  "type": "module",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
+  "scripts": {
+    "build": "bun run build.ts",
+    "prepublishOnly": "bun run build",
+    "biome:check:unsafe": "biome check --write --unsafe",
+    "biome:ci": "biome ci"
+  },
+  "files": ["dist"],
+  "keywords": ["drizzle-orm"],
+  "license": "MIT",
+  "homepage": "https://github.com/qcksys/drizzle-extensions#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qcksys/drizzle-extensions.git"
+  },
+  "bugs": "https://github.com/qcksys/drizzle-extensions/issues",
+  "author": "Tom Alle <tom@qcksys.com>",
+  "devDependencies": {
+    "@types/bun": "^1.2.14",
+    "bun-plugin-dts": "^0.3.0",
+    "drizzle-orm": "^0.43.1",
+    "@biomejs/biome": "1.9.4",
+    "typescript": "^5.8.3"
+  },
+  "trustedDependencies": ["@biomejs/biome"]
+}
