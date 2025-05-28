@@ -5,18 +5,19 @@
 ### onConflictDoUpdate (PostgreSQL, SQLite)
 
 ```ts
+import { db } from "@/db/drizzle";
+import { tTable1 } from "@/db/schema";
+import { onConflictDoUpdateConfig } from "@qcksys/drizzle-extensions/onConflictDoUpdate";
+
 await db
-    .insert(table)
+    .insert(tWorks)
     .values({
-        id: workInfo.workUrlData.workId,
-        title: workInfo.workName,
-        chapters: workInfo.totalChapters,
-        lastUpdated: workInfo.workLastUpdated,
+        id: 1,
+        name: "qcksys",
     })
-    .onConflictDoUpdate({
-        target: tWorks.id,
-        set: buildConflictUpdateColumns(tWorks, [,]),
-    });
+    .onConflictDoUpdate(
+        onConflictDoUpdateConfig(tWorks)
+    );
 ```
 
 ### onDuplicateKeyUpdate (MySQL, SingleStore)
@@ -24,20 +25,17 @@ await db
 ```ts
 import { db } from "@/db/drizzle";
 import { tTable1 } from "@/db/schema";
-import { useLiveTablesQuery } from "@qcksys/drizzle-extensions/sqlite-expo";
+import { onDuplicateKeyUpdateConfig } from "@qcksys/drizzle-extensions/onDuplicateKeyUpdate";
 
 await db
     .insert(tWorks)
     .values({
-        id: workInfo.workUrlData.workId,
-        title: workInfo.workName,
-        chapters: workInfo.totalChapters,
-        lastUpdated: workInfo.workLastUpdated,
+        id: 1,
+        name: "qcksys",
     })
-    .onConflictDoUpdate({
-        target: tWorks.id,
-        set: buildConflictUpdateColumns(tWorks, [,]),
-    });
+    .onDuplicateKeyUpdate(
+        onDuplicateKeyUpdateConfig(tWorks)
+    );
 ```
 
 ### useLiveTablesQuery (Expo SQLite)
@@ -46,7 +44,7 @@ await db
 import { db } from "@/db/drizzle";
 import { tTable1, tTable2 } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { useLiveTablesQuery } from "@qcksys/drizzle-extensions/sqlite-expo";
+import { useLiveTablesQuery } from "@qcksys/drizzle-extensions/useLiveTablesQuery";
 
 const { data } = useLiveTablesQuery(
         db
