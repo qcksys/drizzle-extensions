@@ -1,14 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import {
-  onDuplicateKeyUpdateConfig,
-  onDuplicateKeyUpdateSet,
+	onDuplicateKeyUpdateConfig,
+	onDuplicateKeyUpdateSet,
 } from "../src/onDuplicateKeyUpdate";
 
 describe("should", () => {
-  it("export onDuplicateKeyUpdateConfig", () => {
-    expect(onDuplicateKeyUpdateConfig).toBeDefined();
-  });
-  it("export onDuplicateKeyUpdateSet", () => {
-    expect(onDuplicateKeyUpdateSet).toBeDefined();
-  });
+	it("export onDuplicateKeyUpdateConfig", () => {
+		expect(onDuplicateKeyUpdateConfig).toBeDefined();
+	});
+	it("export onDuplicateKeyUpdateSet", () => {
+		expect(onDuplicateKeyUpdateSet).toBeDefined();
+	});
 });

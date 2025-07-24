@@ -1,63 +1,63 @@
 {
-  "name": "@qcksys/drizzle-extensions",
-  "version": "0.0.11",
-  "type": "module",
-  "exports": {
-    "./onConflictDoUpdate": {
-      "types": "./dist/onConflictDoUpdate.d.ts",
-      "import": "./dist/onConflictDoUpdate.js",
-      "require": "./dist/onConflictDoUpdate.cjs"
-    },
-    "./onDuplicateKeyUpdate": {
-      "types": "./dist/onDuplicateKeyUpdate.d.ts",
-      "import": "./dist/onDuplicateKeyUpdate.js",
-      "require": "./dist/onDuplicateKeyUpdate.cjs"
-    },
-    "./useLiveTablesQuery": {
-      "types": "./dist/useLiveTablesQuery.d.ts",
-      "import": "./dist/useLiveTablesQuery.js",
-      "require": "./dist/useLiveTablesQuery.cjs"
-    }
-  },
-  "scripts": {
-    "test": "bun test",
-    "build": "bun run build.ts",
-    "prepublishOnly": "bun run build",
-    "biome:check:unsafe": "biome check --write --unsafe",
-    "biome:ci": "biome ci"
-  },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "drizzle-orm",
-    "qcksys",
-    "expo",
-    "react-native",
-    "sqlite"
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/qcksys/drizzle-extensions#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/qcksys/drizzle-extensions.git"
-  },
-  "bugs": "https://github.com/qcksys/drizzle-extensions/issues",
-  "author": "Tom Alle <tom@qcksys.com>",
-  "publishConfig": {
-    "access": "public"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@types/bun": "^1.2.14",
-    "@types/react": "^19.1.6",
-    "bun-plugin-dts": "^0.3.0",
-    "drizzle-orm": "^0.43.1",
-    "expo-sqlite": "^15.2.10",
-    "react": "^19.1.0",
-    "typescript": "^5.8.3"
-  },
-  "trustedDependencies": [
-    "@biomejs/biome"
-  ]
+	"name": "@qcksys/drizzle-extensions",
+	"version": "0.0.12",
+	"type": "module",
+	"exports": {
+		"./onConflictDoUpdate": {
+			"types": "./dist/onConflictDoUpdate.d.ts",
+			"import": "./dist/onConflictDoUpdate.js",
+			"require": "./dist/onConflictDoUpdate.cjs"
+		},
+		"./onDuplicateKeyUpdate": {
+			"types": "./dist/onDuplicateKeyUpdate.d.ts",
+			"import": "./dist/onDuplicateKeyUpdate.js",
+			"require": "./dist/onDuplicateKeyUpdate.cjs"
+		},
+		"./useLiveTablesQuery": {
+			"types": "./dist/useLiveTablesQuery.d.ts",
+			"import": "./dist/useLiveTablesQuery.js",
+			"require": "./dist/useLiveTablesQuery.cjs"
+		}
+	},
+	"scripts": {
+		"test": "bun test",
+		"build": "bun run build.ts",
+		"prepublishOnly": "bun run build",
+		"biome:check:unsafe": "biome check --write --unsafe",
+		"biome:ci": "biome ci"
+	},
+	"files": [
+		"dist"
+	],
+	"keywords": [
+		"drizzle-orm",
+		"qcksys",
+		"expo",
+		"react-native",
+		"sqlite"
+	],
+	"license": "MIT",
+	"homepage": "https://github.com/qcksys/drizzle-extensions#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/qcksys/drizzle-extensions.git"
+	},
+	"bugs": "https://github.com/qcksys/drizzle-extensions/issues",
+	"author": "Tom Alle <tom@qcksys.com>",
+	"publishConfig": {
+		"access": "public"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.1.2",
+		"@types/bun": "^1.2.19",
+		"@types/react": "^19.1.8",
+		"bun-plugin-dts": "^0.3.0",
+		"drizzle-orm": "^0.44.3",
+		"expo-sqlite": "^15.2.14",
+		"react": "^19.1.0",
+		"typescript": "^5.8.3"
+	},
+	"trustedDependencies": [
+		"@biomejs/biome"
+	]
 }
