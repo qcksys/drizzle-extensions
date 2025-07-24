@@ -1,10 +1,9 @@
 import { getTableColumns, type SQL, sql } from "drizzle-orm";
-import type { PgTable } from "drizzle-orm/pg-core";
-import type { SQLiteTable } from "drizzle-orm/sqlite-core";
+import type { Table } from "drizzle-orm/table";
 import { toArray } from "./utils.ts";
 
 export const onConflictDoUpdateSet = <
-	TDrizzleTable extends PgTable | SQLiteTable,
+	TDrizzleTable extends Table,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
 >(
 	table: TDrizzleTable,
@@ -50,7 +49,7 @@ export const onConflictDoUpdateSet = <
 };
 
 export const onConflictDoUpdateTarget = <
-	TDrizzleTable extends PgTable | SQLiteTable,
+	TDrizzleTable extends Table,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
 >(
 	table: TDrizzleTable,
@@ -85,7 +84,7 @@ export const onConflictDoUpdateTarget = <
 };
 
 export const onConflictDoUpdateConfig = <
-	TDrizzleTable extends PgTable | SQLiteTable,
+	TDrizzleTable extends Table,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
 >(
 	table: TDrizzleTable,

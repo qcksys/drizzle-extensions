@@ -1,10 +1,9 @@
 import { getTableColumns, type SQL, sql } from "drizzle-orm";
-import type { MySqlTable } from "drizzle-orm/mysql-core";
-import type { SingleStoreTable } from "drizzle-orm/singlestore-core";
+import type { Table } from "drizzle-orm/table";
 import { toArray } from "./utils.ts";
 
 export const onDuplicateKeyUpdateSet = <
-	TDrizzleTable extends MySqlTable | SingleStoreTable,
+	TDrizzleTable extends Table,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
 >(
 	table: TDrizzleTable,
@@ -42,7 +41,7 @@ export const onDuplicateKeyUpdateSet = <
 };
 
 export const onDuplicateKeyUpdateConfig = <
-	TDrizzleTable extends MySqlTable | SingleStoreTable,
+	TDrizzleTable extends Table,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
 >(
 	table: TDrizzleTable,
