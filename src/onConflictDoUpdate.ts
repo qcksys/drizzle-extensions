@@ -12,6 +12,9 @@ import { toArray } from "./utils.ts";
 export const onConflictDoUpdateSet = <
 	TDrizzleTable extends PgTable | SQLiteTable,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
+	TDrizzleTableColTarget extends TDrizzleTableCol,
+	TDrizzleTableColKeep extends TDrizzleTableCol,
+	TDrizzleTableColExclude extends TDrizzleTableCol,
 >(
 	table: TDrizzleTable,
 	{
@@ -19,14 +22,14 @@ export const onConflictDoUpdateSet = <
 		keep,
 		exclude,
 	}: {
-		target?: TDrizzleTableCol[];
-		keep?: TDrizzleTableCol[];
-		exclude?: TDrizzleTableCol[];
+		target?: TDrizzleTableColTarget[] | TDrizzleTableColTarget;
+		keep?: TDrizzleTableColKeep[] | TDrizzleTableColKeep;
+		exclude?: TDrizzleTableColExclude[] | TDrizzleTableColExclude;
 	} = {},
 ) => {
-	const targetArray = toArray(target).filter((col) => col !== undefined);
-	const keepArray = toArray(keep).filter((col) => col !== undefined);
-	const excludeArray = toArray(exclude).filter((col) => col !== undefined);
+	const targetArray = toArray(target);
+	const keepArray = toArray(keep);
+	const excludeArray = toArray(exclude);
 	const excludeNames = excludeArray.map((col) => col.name);
 
 	const allColumns = getTableColumns(table);
@@ -64,36 +67,30 @@ export const onConflictDoUpdateSet = <
 export const onConflictDoUpdateTarget = <
 	TDrizzleTable extends PgTable | SQLiteTable,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
+	TDrizzleTableColTarget extends TDrizzleTableCol,
+	TDrizzleTableColExclude extends TDrizzleTableCol,
 >(
 	table: TDrizzleTable,
 	{
 		target,
 		exclude,
 	}: {
-		target?: TDrizzleTableCol[];
-		exclude?: TDrizzleTableCol[];
+		target?: TDrizzleTableColTarget[] | TDrizzleTableColTarget;
+		exclude?: TDrizzleTableColExclude[] | TDrizzleTableColExclude;
 	} = {},
 ) => {
-	const targetArray = toArray(target).filter((col) => col !== undefined);
+	const targetArray = toArray(target);
 
 	if (targetArray.length) return targetArray;
 
-	const excludeArray = toArray(exclude).filter((col) => col !== undefined);
+	const excludeArray = toArray(exclude);
 	const excludeNames = excludeArray.map((col) => col.name);
-
 	const allColumns = getTableColumns(table);
-	const keepColumns = Object.values(allColumns);
-	const keepColumnNames: TDrizzleTableCol["name"][] = keepColumns.map(
-		(col) => col.name,
+	const targetColumns = Object.values(allColumns);
+	return targetColumns.filter(
+		(col) =>
+			col && (col.primary || col.isUnique) && !excludeNames?.includes(col.name),
 	);
-	const targetCols: ReturnType<typeof getTableColumns>[string][] = [];
-	for (const name of keepColumnNames) {
-		const col = allColumns[name];
-		if (col && (col.primary || col.isUnique || excludeNames?.includes(name))) {
-			targetCols.push(col);
-		}
-	}
-	return targetCols;
 };
 
 /**
@@ -105,6 +102,9 @@ export const onConflictDoUpdateTarget = <
 export const onConflictDoUpdateConfig = <
 	TDrizzleTable extends PgTable | SQLiteTable,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
+	TDrizzleTableColTarget extends TDrizzleTableCol,
+	TDrizzleTableColKeep extends TDrizzleTableCol,
+	TDrizzleTableColExclude extends TDrizzleTableCol,
 >(
 	table: TDrizzleTable,
 	{
@@ -112,9 +112,9 @@ export const onConflictDoUpdateConfig = <
 		keep,
 		exclude,
 	}: {
-		target?: TDrizzleTableCol[];
-		keep?: TDrizzleTableCol[];
-		exclude?: TDrizzleTableCol[];
+		target?: TDrizzleTableColTarget[] | TDrizzleTableColTarget;
+		keep?: TDrizzleTableColKeep[] | TDrizzleTableColKeep;
+		exclude?: TDrizzleTableColExclude[] | TDrizzleTableColExclude;
 	} = {},
 ) => {
 	return {
