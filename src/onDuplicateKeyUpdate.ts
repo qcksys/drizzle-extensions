@@ -12,14 +12,16 @@ import { toArray } from "./utils.ts";
 export const onDuplicateKeyUpdateSet = <
 	TDrizzleTable extends MySqlTable | SingleStoreTable,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
+	TDrizzleTableColKeep extends TDrizzleTableCol,
+	TDrizzleTableColExclude extends TDrizzleTableCol,
 >(
 	table: TDrizzleTable,
 	{
 		keep,
 		exclude,
 	}: {
-		keep?: TDrizzleTableCol[] | TDrizzleTableCol;
-		exclude?: TDrizzleTableCol[] | TDrizzleTableCol;
+		keep?: TDrizzleTableColKeep[] | TDrizzleTableColKeep;
+		exclude?: TDrizzleTableColExclude[] | TDrizzleTableColExclude;
 	} = {},
 ) => {
 	const keepArray = toArray(keep);
@@ -52,14 +54,16 @@ export const onDuplicateKeyUpdateSet = <
 export const onDuplicateKeyUpdateConfig = <
 	TDrizzleTable extends MySqlTable,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
+	TDrizzleTableColKeep extends TDrizzleTableCol,
+	TDrizzleTableColExclude extends TDrizzleTableCol,
 >(
 	table: TDrizzleTable,
 	{
 		keep,
 		exclude,
 	}: {
-		keep?: TDrizzleTableCol[] | TDrizzleTableCol;
-		exclude?: TDrizzleTableCol[] | TDrizzleTableCol;
+		keep?: TDrizzleTableColKeep[] | TDrizzleTableColKeep;
+		exclude?: TDrizzleTableColExclude[] | TDrizzleTableColExclude;
 	} = {},
 ) => {
 	return {
