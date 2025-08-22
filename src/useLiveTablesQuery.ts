@@ -15,7 +15,7 @@ export const useLiveTablesQuery = <
 	deps: unknown[] = [],
 ) => {
 	const [data, setData] = useState<unknown>(
-		// @ts-ignore
+		// @ts-expect-error
 		(is(query, SQLiteRelationalQuery) && query.mode === "first"
 			? undefined
 			: []) as unknown,
@@ -25,7 +25,6 @@ export const useLiveTablesQuery = <
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: The deps not included would cause the effect to run on every render, which is not desired.
 	useEffect(() => {
-		// biome-ignore lint/style/useConst: this needs to be a let
 		let listener: ReturnType<typeof addDatabaseChangeListener> | undefined;
 
 		const handleData = (data: unknown) => {

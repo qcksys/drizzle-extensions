@@ -48,14 +48,14 @@
 		"access": "public"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.1.2",
-		"@types/bun": "^1.2.19",
-		"@types/react": "^19.1.8",
+		"@biomejs/biome": "2.2.0",
+		"@types/bun": "^1.2.20",
+		"@types/react": "^19.1.10",
 		"bun-plugin-dts": "^0.3.0",
-		"drizzle-orm": "^0.44.3",
+		"drizzle-orm": "^0.44.4",
 		"expo-sqlite": "^15.2.14",
-		"react": "^19.1.0",
-		"typescript": "^5.8.3"
+		"react": "^19.1.1",
+		"typescript": "^5.9.2"
 	},
 	"trustedDependencies": [
 		"@biomejs/biome"

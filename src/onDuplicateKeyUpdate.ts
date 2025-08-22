@@ -12,37 +12,33 @@ export const onDuplicateKeyUpdateSet = <
 		keep,
 		exclude,
 	}: {
-		keep?: TDrizzleTableCol | TDrizzleTableCol[];
-		exclude?: TDrizzleTableCol | TDrizzleTableCol[];
+		keep?: TDrizzleTableCol[] | TDrizzleTableCol;
+		exclude?: TDrizzleTableCol[] | TDrizzleTableCol;
 	} = {},
 ) => {
 	const keepArray = toArray(keep);
+	const keepNames = keepArray.map((col) => col?.name);
 	const excludeArray = toArray(exclude);
-	const excludeNames = excludeArray.map((col) => col.name);
-
+	const excludeNames = excludeArray.map((col) => col?.name);
 	const allColumns = getTableColumns(table);
-	const keepColumns = keepArray ?? Object.values(allColumns);
-	const keepColumnNames: TDrizzleTableCol["name"][] = keepColumns.map(
-		(col) => col.name,
-	);
-	return keepColumnNames.reduce(
-		(acc, name) => {
-			const col = allColumns[name];
+	const toFilterCols = keepArray.length ? keepArray : Object.values(allColumns);
+	return toFilterCols.reduce(
+		(acc, col) => {
 			if (
-				col &&
-				(col.primary || col.isUnique || excludeNames?.includes(name))
+				!keepNames.includes(col.name) &&
+				(col.primary || col.isUnique || excludeNames?.includes(col.name))
 			) {
 				return acc;
 			}
-			acc[name] = sql.raw(`values(${allColumns[name]})`);
+			acc[col.name] = sql.raw(`values(${col.name})`);
 			return acc;
 		},
-		{} as Record<TDrizzleTableCol["name"], SQL>,
+		{} as Record<string, SQL>,
 	);
 };
 
 export const onDuplicateKeyUpdateConfig = <
-	TDrizzleTable extends MySqlTable | SingleStoreTable,
+	TDrizzleTable extends MySqlTable,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
 >(
 	table: TDrizzleTable,
@@ -50,8 +46,8 @@ export const onDuplicateKeyUpdateConfig = <
 		keep,
 		exclude,
 	}: {
-		keep?: TDrizzleTableCol | TDrizzleTableCol[];
-		exclude?: TDrizzleTableCol | TDrizzleTableCol[];
+		keep?: TDrizzleTableCol[] | TDrizzleTableCol;
+		exclude?: TDrizzleTableCol[] | TDrizzleTableCol;
 	} = {},
 ) => {
 	return {

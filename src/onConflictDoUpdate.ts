@@ -18,9 +18,9 @@ export const onConflictDoUpdateSet = <
 		exclude?: TDrizzleTableCol[];
 	} = {},
 ) => {
-	const targetArray = toArray(target);
-	const keepArray = toArray(keep);
-	const excludeArray = toArray(exclude);
+	const targetArray = toArray(target).filter((col) => col !== undefined);
+	const keepArray = toArray(keep).filter((col) => col !== undefined);
+	const excludeArray = toArray(exclude).filter((col) => col !== undefined);
 	const excludeNames = excludeArray.map((col) => col.name);
 
 	const allColumns = getTableColumns(table);
@@ -62,11 +62,11 @@ export const onConflictDoUpdateTarget = <
 		exclude?: TDrizzleTableCol[];
 	} = {},
 ) => {
-	const targetArray = toArray(target);
+	const targetArray = toArray(target).filter((col) => col !== undefined);
 
 	if (targetArray.length) return targetArray;
 
-	const excludeArray = toArray(exclude);
+	const excludeArray = toArray(exclude).filter((col) => col !== undefined);
 	const excludeNames = excludeArray.map((col) => col.name);
 
 	const allColumns = getTableColumns(table);
