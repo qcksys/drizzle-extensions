@@ -5,6 +5,9 @@ import type { SQLiteTable } from "drizzle-orm/sqlite-core/table";
 import { addDatabaseChangeListener } from "expo-sqlite";
 import { useEffect, useState } from "react";
 
+/**
+ * Add the tables to listen to in the second argument.
+ */
 export const useLiveTablesQuery = <
 	T extends
 		| Pick<AnySQLiteSelect, "_" | "then">
