@@ -5,6 +5,8 @@ import type { SQLiteTable } from "drizzle-orm/sqlite-core/table";
 import { addDatabaseChangeListener } from "expo-sqlite";
 import { useEffect, useState } from "react";
 
+// Vendored from https://github.com/drizzle-team/drizzle-orm/issues/2660
+
 /**
  * Add the tables to listen to in the second argument.
  */
@@ -17,11 +19,11 @@ export const useLiveTablesQuery = <
 	tables: SQLiteTable[],
 	deps: unknown[] = [],
 ) => {
-	const [data, setData] = useState<unknown>(
+	const [data, setData] = useState<Awaited<T>>(
 		// @ts-expect-error
 		(is(query, SQLiteRelationalQuery) && query.mode === "first"
 			? undefined
-			: []) as unknown,
+			: []) as Awaited<T>,
 	);
 	const [error, setError] = useState<Error>();
 	const [updatedAt, setUpdatedAt] = useState<Date>();
@@ -30,7 +32,8 @@ export const useLiveTablesQuery = <
 	useEffect(() => {
 		let listener: ReturnType<typeof addDatabaseChangeListener> | undefined;
 
-		const handleData = (data: unknown) => {
+		// biome-ignore lint/suspicious/noExplicitAny: Internal function handles types that are input
+		const handleData = (data: any) => {
 			setData(data);
 			setUpdatedAt(new Date());
 		};
