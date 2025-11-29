@@ -7,11 +7,7 @@ import { integer, pgTable, primaryKey, text } from "drizzle-orm/pg-core";
 import { drizzle, type PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import {
-	onConflictDoUpdateConfig,
-	onConflictDoUpdateSet,
-	onConflictDoUpdateTarget,
-} from "../../src/onConflictDoUpdate";
+import { onConflictDoUpdateSet } from "../../src/onConflictDoUpdate";
 
 // Check if Docker is available
 async function isDockerAvailable(): Promise<boolean> {
