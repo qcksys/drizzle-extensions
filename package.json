@@ -11,6 +11,8 @@
 	},
 	"scripts": {
 		"test": "vitest run",
+		"test:integration": "vitest run --config vitest.integration.config.ts",
+		"test:all": "vitest run && vitest run --config vitest.integration.config.ts",
 		"build": "tsdown",
 		"prepublishOnly": "pnpm run build",
 		"biome:check:unsafe": "biome check --write --unsafe",
@@ -41,11 +43,17 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.2.0",
+		"@testcontainers/mysql": "^10.25.0",
+		"@testcontainers/postgresql": "^10.25.0",
 		"@types/react": "^19.2.7",
+		"drizzle-kit": "^0.31.4",
 		"drizzle-orm": "^0.44.7",
 		"expo-sqlite": "^15.2.14",
 		"husky": "^9.1.7",
+		"mysql2": "^3.14.1",
+		"postgres": "^3.4.7",
 		"react": "^19.2.0",
+		"testcontainers": "^10.25.0",
 		"tsdown": "^0.16.8",
 		"typescript": "^5.9.3",
 		"vitest": "^4.0.14"

@@ -52,7 +52,7 @@ export const onDuplicateKeyUpdateSet = <
  * Composite primary/unique keys are not automatically detected, so will need to be specified in the "excludes" option.
  */
 export const onDuplicateKeyUpdateConfig = <
-	TDrizzleTable extends MySqlTable,
+	TDrizzleTable extends MySqlTable | SingleStoreTable,
 	TDrizzleTableCol extends TDrizzleTable["_"]["columns"][string],
 	TDrizzleTableColKeep extends TDrizzleTableCol,
 	TDrizzleTableColExclude extends TDrizzleTableCol,
