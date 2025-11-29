@@ -1,11 +1,19 @@
 {
 	"name": "@qcksys/drizzle-extensions",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"type": "module",
 	"exports": {
-		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+		"./onConflictDoUpdate": {
+			"import": "./dist/onConflictDoUpdate.js",
+			"require": "./dist/onConflictDoUpdate.cjs"
+		},
+		"./onDuplicateKeyUpdate": {
+			"import": "./dist/onDuplicateKeyUpdate.js",
+			"require": "./dist/onDuplicateKeyUpdate.cjs"
+		},
+		"./useLiveTablesQuery": {
+			"import": "./dist/useLiveTablesQuery.js",
+			"require": "./dist/useLiveTablesQuery.cjs"
 		},
 		"./package.json": "./package.json"
 	},
@@ -58,8 +66,5 @@
 		"typescript": "^5.9.3",
 		"vite-tsconfig-paths": "^5.1.4",
 		"vitest": "^4.0.14"
-	},
-	"main": "./dist/index.cjs",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.cts"
+	}
 }
