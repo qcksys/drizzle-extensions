@@ -3,18 +3,18 @@ import { describe, expect, it } from "vitest";
 import {
 	onDuplicateKeyUpdateConfig,
 	onDuplicateKeyUpdateSet,
-} from "../../src/onDuplicateKeyUpdate.ts";
+} from "~/onDuplicateKeyUpdate.ts";
 import {
 	mockMysqlTable,
 	mockMysqlTableComposite,
 	mockMysqlTableMultiUnique,
 	mockMysqlTableUnique,
-} from "./mock/mysql.ts";
+} from "~test/unit/mock/mysql.ts";
 import {
 	mockSinglestoreTable,
 	mockSinglestoreTableMultiUnique,
 	mockSinglestoreTableUnique,
-} from "./mock/singlestore.ts";
+} from "~test/unit/mock/singlestore.ts";
 
 describe("should", () => {
 	it("export onDuplicateKeyUpdateConfig", () => {

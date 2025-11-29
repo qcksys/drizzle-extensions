@@ -4,19 +4,19 @@ import {
 	onConflictDoUpdateConfig,
 	onConflictDoUpdateSet,
 	onConflictDoUpdateTarget,
-} from "../../src/onConflictDoUpdate.ts";
+} from "~/onConflictDoUpdate.ts";
 import {
 	mockPgsqlTable,
 	mockPgsqlTableComposite,
 	mockPgsqlTableMultiUnique,
 	mockPgsqlTableUnique,
-} from "./mock/pgsql.ts";
+} from "~test/unit/mock/pgsql.ts";
 import {
 	mockSqliteTable,
 	mockSqliteTableComposite,
 	mockSqliteTableMultiUnique,
 	mockSqliteTableUnique,
-} from "./mock/sqlite.ts";
+} from "~test/unit/mock/sqlite.ts";
 
 describe("should", () => {
 	it("export onConflictDoUpdateConfig", () => {

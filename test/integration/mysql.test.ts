@@ -45,8 +45,8 @@ const productsTable = mysqlTable("products", {
 const orderItemsTable = mysqlTable(
 	"order_items",
 	{
-		orderId: int().notNull(),
-		productId: int().notNull(),
+		orderId: int("order_id").notNull(),
+		productId: int("product_id").notNull(),
 		quantity: int().notNull(),
 		price: int().notNull(),
 	},

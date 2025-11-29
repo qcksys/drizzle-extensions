@@ -46,8 +46,8 @@ const productsTable = pgTable("products", {
 const orderItemsTable = pgTable(
 	"order_items",
 	{
-		orderId: integer().notNull(),
-		productId: integer().notNull(),
+		orderId: integer("order_id").notNull(),
+		productId: integer("product_id").notNull(),
 		quantity: integer().notNull(),
 		price: integer().notNull(),
 	},
@@ -111,7 +111,10 @@ describeIfDocker("PostgreSQL Integration Tests", () => {
 					name: "Test User",
 					age: 25,
 				})
-				.onConflictDoUpdate(onConflictDoUpdateConfig(usersTable));
+				.onConflictDoUpdate({
+					target: [usersTable.id],
+					set: onConflictDoUpdateSet(usersTable, { target: [usersTable.id] }),
+				});
 
 			const result = await db.select().from(usersTable).where(sql`id = 1`);
 			expect(result).toHaveLength(1);
@@ -136,7 +139,10 @@ describeIfDocker("PostgreSQL Integration Tests", () => {
 					name: "Updated",
 					age: 31,
 				})
-				.onConflictDoUpdate(onConflictDoUpdateConfig(usersTable));
+				.onConflictDoUpdate({
+					target: [usersTable.id],
+					set: onConflictDoUpdateSet(usersTable, { target: [usersTable.id] }),
+				});
 
 			const result = await db.select().from(usersTable).where(sql`id = 2`);
 			expect(result).toHaveLength(1);
@@ -158,8 +164,11 @@ describeIfDocker("PostgreSQL Integration Tests", () => {
 				.insert(usersTable)
 				.values({ id: 3, email: "keep@example.com", name: "Kept", age: 99 })
 				.onConflictDoUpdate({
-					target: onConflictDoUpdateTarget(usersTable),
-					set: onConflictDoUpdateSet(usersTable, { keep: [usersTable.name] }),
+					target: [usersTable.id],
+					set: onConflictDoUpdateSet(usersTable, {
+						target: [usersTable.id],
+						keep: [usersTable.name],
+					}),
 				});
 
 			const result = await db.select().from(usersTable).where(sql`id = 3`);
@@ -187,8 +196,11 @@ describeIfDocker("PostgreSQL Integration Tests", () => {
 					age: 100,
 				})
 				.onConflictDoUpdate({
-					target: onConflictDoUpdateTarget(usersTable),
-					set: onConflictDoUpdateSet(usersTable, { exclude: [usersTable.age] }),
+					target: [usersTable.id],
+					set: onConflictDoUpdateSet(usersTable, {
+						target: [usersTable.id],
+						exclude: [usersTable.age],
+					}),
 				});
 
 			const result = await db.select().from(usersTable).where(sql`id = 4`);
@@ -256,7 +268,12 @@ describeIfDocker("PostgreSQL Integration Tests", () => {
 					price: 250,
 					stock: 15,
 				})
-				.onConflictDoUpdate(onConflictDoUpdateConfig(productsTable));
+				.onConflictDoUpdate({
+					target: [productsTable.id],
+					set: onConflictDoUpdateSet(productsTable, {
+						target: [productsTable.id],
+					}),
+				});
 
 			const result = await db.select().from(productsTable).where(sql`id = 10`);
 			expect(result).toHaveLength(1);
@@ -365,7 +382,10 @@ describeIfDocker("PostgreSQL Integration Tests", () => {
 					},
 					{ id: 102, email: "bulk3@example.com", name: "New Bulk 3", age: 22 },
 				])
-				.onConflictDoUpdate(onConflictDoUpdateConfig(usersTable));
+				.onConflictDoUpdate({
+					target: [usersTable.id],
+					set: onConflictDoUpdateSet(usersTable, { target: [usersTable.id] }),
+				});
 
 			const results = await db
 				.select()
