@@ -1,10 +1,10 @@
-import { describe, expect, it } from "bun:test";
 import { sql } from "drizzle-orm";
+import { describe, expect, it } from "vitest";
 import {
 	onConflictDoUpdateConfig,
 	onConflictDoUpdateSet,
 	onConflictDoUpdateTarget,
-} from "../src/onConflictDoUpdate.ts";
+} from "../src/onConflictDoUpdate";
 import { mockPgsqlTable } from "./mock/pgsql.ts";
 import { mockSqliteTable, mockSqliteTableUnique } from "./mock/sqlite.ts";
 

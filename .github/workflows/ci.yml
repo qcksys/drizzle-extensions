@@ -15,23 +15,27 @@ jobs:
 
     strategy:
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
+        os: [ubuntu-latest, macos-latest]
       fail-fast: false
 
     steps:
       - id: checkout
         name: Checkout
-        uses: actions/checkout@v3
-      - id: setup-bun
-        name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: actions/checkout@v4
+      - id: setup-pnpm
+        name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          bun-version: latest
+          version: 10
+      - id: setup-node
+        name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
       - id: install-deps
         name: Install dependencies
-        run: |
-          bun install
+        run: pnpm install
       - id: test
         name: Run test
-        run: |
-          bun test
+        run: pnpm test
